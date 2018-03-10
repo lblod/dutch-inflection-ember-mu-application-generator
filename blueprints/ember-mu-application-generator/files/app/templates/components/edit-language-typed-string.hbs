@@ -1,0 +1,8 @@
+{{!--
+    Configuration:
+    data: the language-typed-string
+    tagName: tagName for the component
+    classes: css classes for the component
+    --}}
+{{input value=view.content placeholder="Content" key-up=(action "updateData") class="content"}}
+{{input value=view.language placeholder="Language" key-up=(action "updateData") class="lang"}}

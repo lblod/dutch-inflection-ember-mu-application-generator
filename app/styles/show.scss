@@ -1,0 +1,46 @@
+// For resource/details.hbs
+
+.details {
+  text-align: center;
+
+  .actions {
+    .back {
+      &:after {
+        content: "\F060";
+      }
+    }
+
+    .edit {
+      &:after {
+        content: "\F040";
+      }
+    }
+  }
+
+  table {
+    tbody {
+      td {
+
+        word-break: keep-all;
+        ul {
+          list-style: square inside;
+
+          li {
+            .content-string {
+              display: inline-block;
+            }
+
+            span {
+              font-style: italic;
+              color: #666;
+
+              .language-string {
+                display: inline-block;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

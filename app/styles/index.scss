@@ -1,0 +1,82 @@
+// For resource/index.hbs
+
+.content {
+  text-align: center;
+
+  table {
+    tbody {
+      tr {
+        cursor: pointer;
+      }
+
+      ul {
+        list-style: square inside;
+
+        &.link-list {
+          li {
+            white-space: pre-line;
+            padding-top: 2%;
+          }
+        }
+
+        li {
+          .content-string {
+            display: inline-block;
+          }
+
+          span {
+            font-style: italic;
+            color: #666;
+
+            .language-string {
+              display: inline-block;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .empty {
+    a {
+      font-weight: 400;
+    }
+  }
+
+  .pagination {
+    margin-top: 1%;
+
+    .item-calculator {
+      margin-top: 1%;
+      color: #999;
+      font-style: italic;
+    }
+
+    .pagination-controls {
+      .btn {
+        padding-top: 0;
+        padding-bottom: 0;
+
+        &:after {
+          font-size: 55px;
+        }
+      }
+
+      input {
+        width: 80px;
+        padding: 12px;
+      }
+
+      .goto {
+        &:after {
+          font-size: 40px;
+        }
+      }
+    }
+  }
+}
+// For index.hbs default route
+
+.index {
+  text-align: center;
+}

@@ -1,0 +1,80 @@
+{{!-- Page to create a new <%= entityName %> --}}
+<div class="new">
+  <h2 class="title">{{t (humanize 'New <%= entityName %>')}}</h2>
+
+  {{!--
+    Actions to save new <%= entityName %>
+    or delete new <%= entityName %>.
+  --}}
+  <div class="actions">
+    <button type="button" class="btn save" title="Save new <%= entityName %>" {{action 'save' model}}>Save</button>
+    <button type="button" class="btn cancel" title="Cancel" {{action 'cancel' model}}>Cancel</button>
+  </div>
+
+  {{!-- Table to show details of <%= entityName %>. --}}
+  <table>
+    <thead>
+      <tr>
+        <th>Attribute</th>
+        <th>Data</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{!-- Creating rows for attributes depending on the type of property --}}
+      <%= attributes.map( function(property) {
+          if(property.kind == "language-string-set") {
+            return "<tr>\n" +
+              "        <td>{{t '" + property.name + "'}}</td>\n" +
+              "        <td align='middle'>{{edit-language-string-set data=model." + property.name + " tagName='ul' classes='string-set'}}</td>\n" +
+              "      </tr>";
+          }
+          else if(property.kind == "string-set" || property.kind == "uri-set") {
+            return "      <tr>\n" +
+              "        <td>{{t '" + property.name + "'}}</td>\n" +
+              "        <td align='middle'>{{edit-string-set data=model." + property.name + " tagName='ul' classes='string-set'}}</td>\n" +
+              "      </tr>";
+          }
+          else if(property.kind == "language-string") {
+          return "      <tr>\n" +
+          "        <td>{{t '" + property.name + "'}}</td>\n" +
+          "        <td align='middle'>{{edit-language-typed-string data=model." + property.name + "}}</td>\n" +
+          "      </tr>";
+          }
+          else if(property.kind == "boolean") {
+            return "      <tr>\n" +
+              "        <td>{{t '" + property.name + "'}}</td>\n" +
+              "        <td>{{handle-attribute model=model attribute='" + property.name + "' classes='checkbox' editable=true boolean=true}}</td>\n" +
+              "      </tr>";
+          }
+          else if(property.kind == "date") {
+            return "      <tr>\n" +
+              "        <td>" + property.name + "</td>\n" +
+              "<td align='middle'>{{handle-date model=model attribute='" + property.name + "' editable=true}}</td>\n" +
+              "      </tr>";
+          }
+          else if(property.kind == "datetime") {
+            return "      <tr>\n" +
+              "        <td>" + property.name + "</td>\n" +
+              "<td align='middle'>{{handle-date model=model attribute='" + property.name + "' editable=true timePicker=true}}</td>\n" +
+              "      </tr>";
+          }
+          else {
+            return "      <tr>\n" +
+              "        <td>" + property.name + "</td>\n" +
+              "<td align='middle'>{{handle-attribute model=model attribute='" + property.name + "' editable=true}}</td>\n" +
+              "      </tr>";
+          }
+        }).join("\n") %>
+      <%=
+        belongsToRelationships.map( function(relationship) {
+          return "<tr><td>" + relationship.name + "</td><td align='middle'>{{edit-belongs-to relName=model."+relationship.name+" relType=\""+relationship.relType+"\"}}</td></tr>";
+        }).join("\n      ")
+      %>
+      <%=
+        hasManyRelationships.map( function(relationship) {
+          return "<tr><td>" + relationship.name + "</td><td align='middle'>{{edit-has-many relName=model."+relationship.name+" relType=\""+relationship.relType+"\"}}</td></tr>";
+        }).join("\n      ")
+      %>
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,84 @@
+{{!-- Page to show details of <%= entitiesName %> --}}
+<div class="details">
+  <h2 class="title">{{t (humanize '<%= entityName %> details')}}</h2>
+
+  {{!--
+    Actions to go back to the list-view or edit <%= entityName %>
+    if it's an editable application.
+  --}}
+  <div class="actions">
+    {{#link-to "<%= entitiesName %>" class="btn back" title="Return to list" tagName='button'}}Return to the list{{/link-to}}
+    <%= ((!readonly)?'{{#link-to "'+entitiesName+'.edit" model class="btn edit" title="Edit this item" tagName="button"}}Edit{{/link-to}}':'')%>
+  </div>
+
+  {{!-- Table to show details of <%= entityName %>. --}}
+  <table>
+    <thead>
+      <tr>
+        <th>{{t "Attribute"}}</th>
+        <th>{{t "Data"}}</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{!-- Creating row for id --}}
+      <tr>
+        <td class="properties__label">{{t "id"}}</td>
+        {{handle-attribute model=model attribute='id' tagName='td' classes='properties__data'}}
+      </tr>
+      {{!-- Creating rows for attributes depending on the type of property --}}
+      <%= attributes.map( function(property) {
+          if(property.kind == "language-string-set") {
+            return "      <tr>\n" +
+              "        <td>{{t '" + property.name + "'}}</td>\n" +
+              "        <td>{{display-attribute-string-set model=model attribute='" + property.name + "' lang=true tagName='ul' innerTagName='li' classes='string-set'}}</td>\n" +
+              "      </tr>";
+          }
+          else if(property.kind == "string-set" || property.kind == "uri-set") {
+            return "      <tr>\n" +
+              "        <td>{{t '" + property.name + "'}}</td>\n" +
+              "        <td>{{display-attribute-string-set model=model attribute='" + property.name + "' tagName='ul' innerTagName='li' classes='string-set'}}</td>\n" +
+              "      </tr>";
+          }
+          else if(property.kind == "boolean") {
+            return "      <tr>\n" +
+              "        <td>{{t '" + property.name + "'}}</td>\n" +
+              "        <td>{{handle-attribute model=model attribute='" + property.name + "' classes='checkbox' boolean=true}}</td>\n" +
+              "      </tr>";
+          }
+          else if(property.kind == "date") {
+            return "      <tr>\n" +
+              "        <td>{{t '" + property.name + "'}}</td>\n" +
+              "        {{handle-date model=model attribute='" + property.name + "' tagName='td' classes='properties__data'}}\n" +
+              "      </tr>";
+          }
+          else if(property.kind == "datetime") {
+            return "      <tr>\n" +
+              "        <td>{{t '" + property.name + "'}}</td>\n" +
+              "        {{handle-date model=model attribute='" + property.name + "' tagName='td' classes='properties__data' timePicker=true}}\n" +
+              "      </tr>";
+          }
+          else {
+            return "      <tr>\n" +
+              "        <td>{{t '" + property.name + "'}}</td>\n" +
+              "        {{handle-attribute model=model attribute='" + property.name + "' tagName='td' classes='properties__data'}}\n" +
+              "      </tr>";
+          }
+        }).join("\n")
+      %>
+<%= belongsToRelationships.map( function(relationship) {
+        return "      <tr>\n" +
+ 		 	  '        <td class="properties__label">{{t \'' +  relationship.name + '\'}}</td>\n' +
+        '       {{display-model-belongsto-relationship model=model.' + relationship.name + ' itemRoute=\'' + relationship.relRoute  + '.show\' configuredLabel=\'stringRep\' tagName="td" classes="properties__data"}}\n' +
+        '      </tr>';
+        } ).join("\n")
+      %>
+<%= hasManyRelationships.map( function(relationship) {
+        return "      <tr>\n" +
+   		  '        <td class="properties__label">{{t \'' +  relationship.name + '\'}}</td>\n' +
+        '       {{display-model-hasmany-relationship   model=model.' + relationship.name + ' itemRoute=\'' + relationship.relRoute  + '.show\' configuredLabel=\'stringRep\' tagName="td" classes="properties__data"}}\n' +
+        '      </tr>';
+       } ).join("\n")
+      %>
+    </tbody>
+  </table>
+</div>

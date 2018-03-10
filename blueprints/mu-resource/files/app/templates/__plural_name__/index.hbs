@@ -1,0 +1,66 @@
+{{!-- Page to list <%= entitiesName %> --}}
+<div class="content">
+  <h2 class="title">{{t (humanize '<%= entitiesName %>')}}</h2>
+  <%= ((!readonly)?'<div class="actions">{{#link-to "'+entitiesName+'.new" class="btn new" title="Create new item" tagName="button" }}Create{{/link-to}}</div>':'')%>
+  {{#if model}}
+    <table>
+      <thead>
+        <tr>
+          <th class="properties__label">id</th>
+          <%= attributes.map( function(property) {
+            return '{{sortable-table-header attribute="' + property.name + '" currentSort=sort}}';
+          }).join("\n") %>
+
+          <%= belongsToRelationships.map( function(relationship) {
+            return '{{sortable-table-header attribute="' + relationship.name + '" currentSort=sort}}';
+          }).join("\n") %>
+          <%= hasManyRelationships.map( function(relationship) {
+            return '{{sortable-table-header attribute="' + relationship.name + '" currentSort=sort}}';
+          }).join("\n") %>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each model as |item|}}
+          {{#link-to "<%= entitiesName %>.show" item tagName='tr' }}
+              <td>{{handle-attribute model=item attribute='id' classes='properties__data'}}</td>
+<%= attributes.map( function(property) {
+                if(property.kind == "language-string-set") {
+                  return "            <td>{{display-attribute-string-set model=item attribute='" + property.name + "' lang=true tagName='ul' innerTagName='li' classes='string-set'}}</td>";
+                }
+                else if(property.kind == "string-set" || property.kind == "uri-set") {
+                  return "            <td>{{display-attribute-string-set model=item attribute='" + property.name + "' tagName='ul' innerTagName='li' classes='string-set'}}</td>";
+                }
+                else if(property.kind == "boolean") {
+                  return "        <td>{{handle-attribute model=item attribute='" + property.name + "' classes='checkbox' boolean=true}}</td>";
+                }
+                else if(property.kind == "date") {
+                  return "        {{handle-date model=item attribute='" + property.name + "' tagName='td' classes='properties__data'}}";
+                }
+                else if(property.kind == "datetime") {
+                  return "        {{handle-date model=item attribute='" + property.name + "' tagName='td' classes='properties__data' timePicker=true}}";
+                }
+                else {
+                  return "            {{handle-attribute model=item attribute='" + property.name + "' tagName='td' classes='properties__data'}}";
+                }
+              }).join("\n") %>
+<%= belongsToRelationships.map( function(relationship) {
+                  return '            {{display-model-belongsto-relationship model=item.' + relationship.name + ' tagName=\'td\' itemRoute=\'' + relationship.relRoute  + '.show\' configuredLabel=\'stringRep\'}}';
+              }).join("\n") %>
+<%= hasManyRelationships.map( function(relationship) {
+                  return '            {{display-model-hasmany-relationship   model=item.' + relationship.name + ' tagName=\'td\' itemRoute=\'' + relationship.relRoute  + '.show\' configuredLabel=\'stringRep\'}}';
+              }).join("\n") %>
+          {{/link-to}}
+        {{/each}}
+      </tbody>
+    </table>
+
+    {{#if model.meta.pagination}}
+      {{pagination-component page=page numberOfItems=model.length total=model.meta.count links=model.meta.pagination}}
+    {{/if}}
+  {{else}}
+    <div class="empty">
+      No {{t (humanize '<%= entitiesName %>')}} in the database.
+      <%= ((!readonly)?'Click on the <i class="fa fa-plus" aria-hidden="true"></i> button to create a new {{t (humanize "'+entityName+'")}}.':'')%>
+    </div>
+  {{/if}}
+</div>

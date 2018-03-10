@@ -1,0 +1,306 @@
+//  default settings for the design
+@import 'mixin';
+
+
+.xdsoft_datepicker.active {
+  width: 300px;
+}
+
+.xdsoft_label.xdsoft_year {
+  width:  75px;
+}
+
+.xdsoft_label.xdsoft_month {
+  width: 130px;
+}
+
+.route-not-found {
+  text-align: center;
+  font-size: 24px;
+  display: block;
+  i {
+    font-size: 48px;
+  }
+  > * {
+    margin: 10px;
+  }
+}
+
+.loading {
+  text-align: center;
+
+  p {
+    display: none;
+  }
+}
+
+.error {
+  text-align: center;
+  font-size: 24px;
+  .pointer {
+    cursor: pointer;
+    i {
+      border: 1px solid #e8e8e8;
+      border-radius: 50px;
+      padding: 5px;
+      margin: 5px;
+    }
+  }
+}
+
+table {
+  margin: 30px auto 0;
+  // width: 60%;
+  text-align: left;
+  border: 1px solid #e8e8e8;
+  border-collapse: collapse;
+
+  th {
+    padding: 25px;
+    vertical-align: middle;
+    border: 1px solid #e8e8e8;
+  }
+
+  td {
+    padding: 25px;
+    vertical-align: middle;
+    text-align: left;
+    width: 400px;
+    word-break: break-word;
+    border: 1px solid #e8e8e8;
+  }
+
+  thead {
+    tr {
+      background: #eee;
+      text-transform: uppercase;
+
+      .sortable {
+        span {
+          cursor: pointer;
+        }
+
+        &.sorted {
+          color: $mainColor;
+
+          &:after {
+            font-family: "FontAwesome";
+            font-size: 15px;
+          }
+
+          &.asc {
+            &:after {
+              content: "\F160";
+            }
+          }
+
+          &.desc {
+            &:after {
+              content: "\F161";
+            }
+          }
+        }
+      }
+    }
+  }
+
+  tbody {
+    tr {
+      &:nth-child(even) {
+        background: #eee;
+      }
+
+      td {
+        img {
+          max-width: 60%;
+        }
+      }
+    }
+  }
+}
+
+input {
+  font-family: 'Source Sans Pro', sans-serif;
+  outline: none;
+  border: 1px solid #d4d4d4;
+  font-size: 17px;
+  font-weight: 300;
+  padding: 1%;
+  @include transition(all .5s ease);
+  @include border-radius(4px);
+
+  &:focus,
+  &:hover {
+    border: 1px solid $mainColor;
+  }
+}
+
+.title {
+  text-transform: capitalize;
+}
+
+i {
+  margin: 2px;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  @include transition(all 0.35s ease);
+
+  &:hover {
+    color: $mainColor;
+  }
+}
+
+.checkbox {
+  input {
+    @include css3-prefix(appearance, none);
+    border: none;
+
+    &:before {
+      content: '\F096';
+      font-family: "FontAwesome";
+      font-size: 24px;
+    }
+
+    &:checked {
+      &:before {
+        content: '\F046';
+      }
+    }
+  }
+}
+
+.ember-power-select-trigger {
+  font-family: 'Source Sans Pro', sans-serif;
+  outline: none;
+  border: 1px solid #d4d4d4;
+  font-size: 17px;
+  font-weight: 300;
+  @include transition(all .5s ease);
+  @include border-radius(4px);
+  text-align: left;
+
+  &:active,
+  &:focus,
+  &:hover {
+    border: 1px solid $mainColor;
+  }
+
+  input {
+    &:active,
+    &:focus,
+    &:hover {
+      border: none;
+    }
+  }
+
+  .ember-power-select-multiple-option {
+    background-color: #eee;
+
+    .ember-power-select-multiple-remove-btn, .ember-power-select-clear-btn {
+      color: red;
+      font-weight: 800;
+    }
+  }
+}
+
+.btn {
+  border: none;
+  background: none;
+  outline: none;
+  padding: 1%;
+  @include transition(all 0.35s ease);
+  font-size: 0;
+
+  &:after {
+    font-family: "FontAwesome";
+    font-size: 24px;
+  }
+
+  &:not(:disabled) {
+    &:hover {
+      color: $mainColor;
+      cursor: pointer;
+    }
+  }
+
+  &.delete {
+    &:after {
+      content: "\F1F8";
+    }
+  }
+
+  &.cancel {
+    &:after {
+      content: "\F00D";
+    }
+  }
+
+  &.new {
+    &:after {
+      content: "\F067";
+    }
+  }
+
+  &.save {
+    &:after {
+      content: "\F00C";
+    }
+  }
+
+  &.first {
+    &:after {
+      content: "\F100";
+    }
+  }
+
+  &.last {
+    &:after {
+      content: "\F101";
+    }
+  }
+
+  &.goto {
+    &:after {
+      content: "\F138";
+    }
+  }
+
+  &.left,
+  &.previous {
+    &:after {
+      content: "\F104";
+    }
+  }
+
+  &.next,
+  &.right {
+    &:after {
+      content: "\F105";
+    }
+  }
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 90%;
+  overflow-y: scroll;
+}
+
+body {
+  background: #fff;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-weight: 300;
+  color: black;
+  zoom: 100%;
+  min-width: 1000px;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}

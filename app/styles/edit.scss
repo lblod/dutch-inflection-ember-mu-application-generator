@@ -1,0 +1,46 @@
+// For resource/edit.hbs
+
+.edit {
+  text-align: center;
+
+  table {
+    tbody {
+      tr {
+        .ember-power-select-trigger {
+          width: 95%;
+        }
+
+        input {
+          text-align: left;
+          width: 95%;
+
+          &.content {
+            width: 65%;
+            margin: 1% 2% 1% 0;
+          }
+
+          &.lang {
+            width: 18%;
+          }
+
+          &.with-delete {
+            width: 88%;
+          }
+        }
+
+        .checkbox {
+          margin-left: 2%;
+
+          input {
+            width: auto;
+          }
+        }
+      }
+    }
+  }
+
+  .create {
+    text-align: left;
+    padding: 0 2%;
+  }
+}
