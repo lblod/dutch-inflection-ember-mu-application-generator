@@ -91,30 +91,16 @@ User documentation can be found in the docs folder!
 
 ## Supported attribute types
 
-Besides the built-in Ember attribute types (string, number, boolean, date) we have transforms for the followings:
+Besides the built-in Ember attribute types (string, number, boolean) we have transforms for the followings:
 
-  - language-string-set
-    - In this Ember object we have two attributes: `content` is the content of the string and `language` is the language of the string.
-    - The `toString` method is also overwritten to return `content (language)`.
-  - string-set
-    - Array of strings.
-  - datetime
-    - Uses the format YYYY. MM. DD. HH:mm
-  - g-year
-    - converting it to a string
-  - gemoetry
-    - converting it to a string
-  - uri
-    - converting it to a string
+- date: transforms an `xsd:date`
+- datetime: transforms an `xsd:datetime`
+- language-string: transforms an object representing a value in a specific language
+- language-string-set: transforms an array of language-strings
+- string-set: transforms an array of strings
+- uri-set: transforms an array of URIs
 
-### Changed attribute types
-  - string
-    - The \n sent back by mu-cl-resources is not considered as a line feed, so we have to do this dirty trick to actually handle it.
-  - boolean
-    - Mu-cl-resources seems to have issues with booleans for now (basically it complains when you try to send a boolean value). This transform was made to get around this, as it will translate a front-end boolean into a string for the DB.
-    - Therefore, this transform expects the "boolean" value to be specified as a string in the domain.lisp.
-    - Once that issue has been fixed, setting the property to "boolean" in domain.lisp and deleting this transform should be enough.
-    - **If your backend doesn't send back a string, but a boolean value, then this file can be deleted**
+See [mu-semtech/ember-mu-transform-helpers](https://github.com/mu-semtech/ember-mu-transform-helpers)
 
 ## Known issues
 

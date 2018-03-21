@@ -30,7 +30,7 @@
               "        <td align='middle'>{{edit-language-string-set data=changeset." + property.name + " tagName='ul' classes='string-set'}}</td>\n" +
               "      </tr>";
           }
-          else if(property.kind == "string-set") {
+          else if(property.kind == "string-set" || property.kind == "uri-set") {
             return "      <tr>\n" +
               "        <td>{{t '" + property.name + "'}}</td>\n" +
               "        <td align='middle'>{{edit-string-set data=changeset." + property.name + " tagName='ul' classes='string-set'}}</td>\n" +
