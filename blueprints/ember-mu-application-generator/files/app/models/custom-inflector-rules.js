@@ -36,6 +36,7 @@ inflector.irregular("tijdsgebonden-entiteit","tijdsgebonden-entiteiten");
 inflector.irregular("tijdsinterval","tijdsintervallen");
 inflector.irregular("verkiezingsresultaat","verkiezingsresultaten");
 inflector.irregular("verkiezingsresultaat-gevolg-code","verkiezingsresultaat-gevolg-codes");
+inflector.irregular("werkingsgebied","werkingsgebieden");
 inflector.irregular("zitting","zittingen");
 
 // Meet Ember Inspector's expectation of an export
