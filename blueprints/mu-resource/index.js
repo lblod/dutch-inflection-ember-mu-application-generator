@@ -79,6 +79,8 @@ var inflection = {
       "plural": "verkiezingsresultaten"},
     { "singular": "verkiezingsresultaat-gevolg-code",
       "plural": "verkiezingsresultaat-gevolg-codes"},
+    { "singular": "werkingsgebied",
+      "plural": "werkingsgebieden"},
     { "singular": "zitting",
       "plural": "zittingen"},
   ],
