@@ -1,5 +1,6 @@
 // TODO clean up packages
-var standardInflection = require('inflection'); // TODO less aggressive inflector?
+var Inflector = require('./inflector.js');
+var inflector = new Inflector();
 var stringUtils = require('ember-cli-string-utils');
 var EOL = require('os').EOL;
 var fs = require('fs-extra');
@@ -8,106 +9,26 @@ var chalk = require('chalk');
 var stringUtil = require('ember-cli-string-utils');
 var EmberRouterGenerator = require('ember-router-generator');
 
-var inflection = {
-  words: [
-    // list of singular and plural words
-    { "singular": "agendapunt",
-      "plural": "agendapunten"},
-    { "singular": "artikel",
-      "plural": "artikels"},
-    { "singular": "behandeling-van-agendapunt",
-      "plural": "behandelingen-van-agendapunten"},
-    { "singular": "beleidsdomein-code",
-      "plural": "beleidsdomein-codes"},
-    { "singular": "besluit",
-      "plural": "besluiten"},
-    { "singular": "bestuurseenheid",
-      "plural": "bestuurseenheden"},
-    { "singular": "bestuurseenheid-classificatie-code",
-      "plural": "bestuurseenheid-classificatie-codes"},
-    { "singular": "bestuursfunctie-code",
-      "plural": "bestuursfunctie-codes"},
-    { "singular": "bestuursorgaan",
-      "plural": "bestuursorganen"},
-    { "singular": "bestuursorgaan-classificatie-code",
-      "plural": "bestuursorgaan-classificatie-codes"},
-    { "singular": "entiteit",
-      "plural": "entiteiten"},
-    { "singular": "fractie",
-      "plural": "fracties"},
-    { "singular": "geboorte",
-      "plural": "geboortes"},
-    { "singular": "geslacht-code",
-      "plural": "geslacht-codes"},
-    { "singular": "identificator",
-      "plural": "identificatoren"},
-    { "singular": "kandidatenlijst",
-      "plural": "kandidatenlijsten"},
-    { "singular": "lidmaatschap",
-      "plural": "lidmaatschappen"},
-    { "singular": "lijsttype",
-      "plural": "lijsttypes"},
-    { "singular": "mandaat",
-      "plural": "mandaten"},
-    { "singular": "mandataris",
-      "plural": "mandatarissen"},
-    { "singular": "mandataris-status-code",
-      "plural": "mandataris-status-codes"},
-    { "singular": "persoon",
-      "plural": "personen"},
-    { "singular": "rechtsgrond",
-      "plural": "rechtsgronden"},
-    { "singular": "rechtsgrond-aanstelling",
-      "plural": "rechtsgronden-aanstelling"},
-    { "singular": "rechtsgrond-artikel",
-      "plural": "rechtsgronden-artikel"},
-    { "singular": "rechtsgrond-beeindiging",
-      "plural": "rechtsgronden-beeindiging"},
-    { "singular": "rechtsgrond-besluit",
-      "plural": "rechtsgronden-besluit"},
-    { "singular": "rechtstreekse-verkiezing",
-      "plural": "rechtstreekse-verkiezingen"},
-    { "singular": "stemming",
-      "plural": "stemmingen"},
-    { "singular": "template",
-      "plural": "templates"},
-    { "singular": "tijdsgebonden-entiteit",
-      "plural": "tijdsgebonden-entiteiten"},
-    { "singular": "tijdsinterval",
-      "plural": "tijdsintervallen"},
-    { "singular": "verkiezingsresultaat",
-      "plural": "verkiezingsresultaten"},
-    { "singular": "verkiezingsresultaat-gevolg-code",
-      "plural": "verkiezingsresultaat-gevolg-codes"},
-    { "singular": "werkingsgebied",
-      "plural": "werkingsgebieden"},
-    { "singular": "zitting",
-      "plural": "zittingen"},
-  ],
-  // overriding logic
-  pluralize: function(word) {
-    var singularIdx = this.words.map( (item) => item.singular ).indexOf(word);
-    if( singularIdx != -1 ){
-      return this.words[singularIdx].plural;
-    }
-    var pluralIdx = this.words.map( (item) => item.plural ).indexOf(word);
-    if( pluralIdx != -1 ) {
-      return word;
-    }
-    return standardInflection.pluralize(word);
-  },
-  singularize: function(word) {
-    var singularIdx = this.words.map( (item) => item.singular ).indexOf(word);
-    if( singularIdx != -1 ){
-      return word;
-    }
-    var pluralIdx = this.words.map( (item) => item.plural ).indexOf(word);
-    if( pluralIdx != -1 ) {
-      return this.words[pluralIdx].plural;
-    }
-    return standardInflection.singularize(word);
-  }
-};
+// TODO: duplication from blueprints/ember-mu-application-generator/files/app/models/custom-inflector-rules
+inflector.plural(/$/,'en');
+inflector.plural(/e$/,'es');
+inflector.plural(/e([lnr])$/,'e$1s');
+inflector.plural(/([aiuo])$/,'$1s');
+inflector.plural(/([^aiuoe])([aiuo])([a-z])$/,'$1$2$3$3en'); // TODO: this is a bit hack
+inflector.plural(/uis$/,'uizen');
+inflector.plural(/ief$/,'ieven');
+inflector.plural(/or$/,'oren');
+inflector.plural(/ie$/,'ies');
+inflector.plural(/eid$/,'eden');
+inflector.plural(/aa([a-z])$/,'a$1en');
+inflector.plural(/uu([a-z])$/,'u$1en');
+inflector.plural(/oo([a-z])$/,'o$1en');
+inflector.irregular("behandeling-van-agendapunt","behandelingen-van-agendapunten");
+inflector.irregular("rechtsgrond-aanstelling","rechtsgronden-aanstelling");
+inflector.irregular("rechtsgrond-artikel","rechtsgronden-artikel");
+inflector.irregular("rechtsgrond-beeindiging","rechtsgronden-beeindiging");
+inflector.irregular("rechtsgrond-besluit","rechtsgronden-besluit");
+inflector.irregular("editor-document", "editor-documents");
 
 /* eslint-env node */
 module.exports = {
@@ -163,8 +84,8 @@ module.exports = {
       var dasherizedType = stringUtils.dasherize(type);
       var dasherizedForeignModel = stringUtils.dasherize(foreignModel);
       // TODO name is given, inflect anyways? should be correct in domain.lisp, right?
-      var dasherizedForeignModelPlural = inflection.pluralize(dasherizedForeignModel);
-      var dasherizedForeignModelSingular = inflection.singularize(dasherizedForeignModel);
+      var dasherizedForeignModelPlural = inflector.pluralize(dasherizedForeignModel);
+      var dasherizedForeignModelSingular = inflector.singularize(dasherizedForeignModel);
 
       var camelizedInverseName = stringUtils.camelize(inverseName);
 
@@ -246,7 +167,7 @@ module.exports = {
       belongsToRelationships: belongsToRelationships,
       hasManyRelationships: hasManyRelationships,
       entityName: options.entity.name,
-      entitiesName: inflection.pluralize(options.entity.name),
+      entitiesName: inflector.pluralize(options.entity.name),
 
       readonly: options.readonly
     };
@@ -365,7 +286,7 @@ function updateRouter(action, options) {
   };
   var color = actionColorMap[action] || 'gray';
 
-  var entitiesName = inflection.pluralize(entity.name);
+  var entitiesName = inflector.pluralize(entity.name);
 
   var routes = [{
       name: entitiesName,
