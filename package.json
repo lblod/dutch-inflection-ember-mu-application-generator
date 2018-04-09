@@ -64,5 +64,6 @@
   },
   "ember-addon": {
     "configPath": "tests/dummy/config"
-  }
+  },
+  "license": "MIT"
 }
