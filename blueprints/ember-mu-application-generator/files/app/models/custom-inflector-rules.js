@@ -2,6 +2,7 @@ import Inflector from 'ember-inflector';
 
 const inflector = Inflector.inflector;
 
+// duplicated in /blueprints/mu-resource/index.js
 inflector.plural(/$/,'en');
 inflector.plural(/e$/,'es');
 inflector.plural(/e([lnr])$/,'e$1s');
@@ -21,6 +22,7 @@ inflector.irregular("rechtsgrond-artikel","rechtsgronden-artikel");
 inflector.irregular("rechtsgrond-beeindiging","rechtsgronden-beeindiging");
 inflector.irregular("rechtsgrond-besluit","rechtsgronden-besluit");
 inflector.irregular("editor-document", "editor-documents");
-
+inflector.irregular("editor-status", "editor-statuses");
 // Meet Ember Inspector's expectation of an export
+
 export default {};
