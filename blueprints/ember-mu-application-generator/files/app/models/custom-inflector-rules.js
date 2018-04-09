@@ -22,7 +22,7 @@ inflector.irregular("rechtsgrond-artikel","rechtsgronden-artikel");
 inflector.irregular("rechtsgrond-beeindiging","rechtsgronden-beeindiging");
 inflector.irregular("rechtsgrond-besluit","rechtsgronden-besluit");
 inflector.irregular("editor-document", "editor-documents");
-inflector.irregular("editor-status", "editor-statuses");
+inflector.irregular("editor-document-status", "editor-document-statuses");
 // Meet Ember Inspector's expectation of an export
 
 export default {};
