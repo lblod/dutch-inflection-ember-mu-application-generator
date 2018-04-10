@@ -36,6 +36,7 @@ inflector.irregular("rechtsgrond-beeindiging","rechtsgronden-beeindiging");
 inflector.irregular("rechtsgrond-besluit","rechtsgronden-besluit");
 inflector.irregular("editor-document", "editor-documents");
 inflector.irregular("editor-document-status", "editor-document-statuses");
+inflector.irregular("export", "exports");
 // Meet Ember Inspector's expectation of an export
 
 export default {};
