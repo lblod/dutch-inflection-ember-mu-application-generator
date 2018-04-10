@@ -16,11 +16,11 @@ inflector.plural(/eid$/,'eden');
 inflector.plural(/aa([a-z])$/,'a$1en');
 inflector.plural(/uu([a-z])$/,'u$1en');
 inflector.plural(/oo([a-z])$/,'o$1en');
-inflector.singular(/$en/,'');
+inflector.singular(/en$/,'');
 inflector.singular(/es$/,'e');
 inflector.singular(/e([lnr])s$/,'e$1');
 inflector.singular(/([aiuo])s$/,'$1');
-inflector.singular(/([^aiuoe])([aiuo])(([a-z]){2})en$/,"$1$2$4"); // TODO: this is a bit hack
+inflector.singular(/([^aiuoe])([aiuo])([a-z])\3en$/,"$1$2$3"); // TODO: this is a bit hack
 inflector.singular(/uizen$/,'uis');
 inflector.singular(/ieven$/,'ief');
 inflector.singular(/ies$/,'ie');
