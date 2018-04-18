@@ -44,6 +44,7 @@ inflector.irregular("rechtsgrond-besluit","rechtsgronden-besluit");
 inflector.irregular("editor-document", "editor-documents");
 inflector.irregular("editor-document-status", "editor-document-statuses");
 inflector.irregular("export", "exports");
+inflector.irregular("account", "accounts");
 
 /* eslint-env node */
 module.exports = {
