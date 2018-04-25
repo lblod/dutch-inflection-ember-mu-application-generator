@@ -90,7 +90,6 @@ In this example `misc` will create an untyped attribute: `misc: attr()`
 User documentation can be found in the docs folder!
 
 ## Supported attribute types
-
 Besides the built-in Ember attribute types (string, number, boolean) we have transforms for the followings:
 
 - date: transforms an `xsd:date`
