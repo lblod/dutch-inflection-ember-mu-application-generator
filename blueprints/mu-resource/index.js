@@ -45,6 +45,13 @@ inflector.irregular("editor-document", "editor-documents");
 inflector.irregular("editor-document-status", "editor-document-statuses");
 inflector.irregular("export", "exports");
 inflector.irregular("account", "accounts");
+inflector.irregular('identificator', 'identificatoren');
+inflector.irregular('file', 'files');
+inflector.irregular('document-status', 'document-statuses');
+inflector.irregular('bbcdr-report', 'bbcdr-reports');
+inflector.irregular('validation', 'validations');
+inflector.irregular('validation-execution', 'validation-executions');
+inflector.irregular('validation-error', 'validation-errors');
 
 /* eslint-env node */
 module.exports = {
