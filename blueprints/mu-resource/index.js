@@ -55,6 +55,7 @@ inflector.irregular('validation-error', 'validation-errors');
 inflector.irregular('inzending-voor-toezicht', 'inzendingen-voor-toezicht');
 inflector.irregular('toezicht-account-acceptance-status', 'toezicht-account-acceptance-statuses');
 inflector.irregular('toezicht-fiscal-period', 'toezicht-fiscal-periods');
+inflector.irregular('form-solution', 'form-solutions');
 
 /* eslint-env node */
 module.exports = {
