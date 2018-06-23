@@ -52,6 +52,9 @@ inflector.irregular('bbcdr-report', 'bbcdr-reports');
 inflector.irregular('validation', 'validations');
 inflector.irregular('validation-execution', 'validation-executions');
 inflector.irregular('validation-error', 'validation-errors');
+inflector.irregular('inzending-voor-toezicht', 'inzendingen-voor-toezicht');
+inflector.irregular('toezicht-account-acceptance-status', 'toezicht-account-acceptance-statuses');
+inflector.irregular('toezicht-fiscal-period', 'toezicht-fiscal-periods');
 
 /* eslint-env node */
 module.exports = {
